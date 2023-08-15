@@ -1,30 +1,49 @@
-from abc import ABC, abstractmethod
-class IUser():
-    def __init__(self, med, name_):
-        self.mediator = med
-        self.name = name_
+# https://www.tutorialandexample.com/mediator-design-pattern-in-python
+
+from abc import ABCMeta, abstractmethod
+from typing import List
+
+class IMediator(metaclass=ABCMeta):
     @abstractmethod
-    def send(self, msg):
-        pass
-    @abstractmethod
-    def receive(self, msg):
+    def add_user(self):
         pass
 
-class Chat_Mediator:
-    def __init__(self):
-        self.users = []
-    def add_user(self, user):
+    @abstractmethod
+    def send_message(self):
+        pass
+
+
+class IUser(metaclass=ABCMeta):
+    @abstractmethod
+    def send(self):
+        pass
+    @abstractmethod
+    def receive(self):
+        pass
+
+
+class Chat_Mediator(IMediator):
+    def __init__(self)-> None:
+        self.users: List[IUser] = []
+
+    def add_user(self, user: IUser)-> None:
         self.users.append(user)
-    def send_message(self, msg, user):
+
+    def send_message(self, msg: str, user: IUser)-> None:
         for u in self.users:
             if u != user:
                 u.receive(msg)
 
 class User(IUser):
-    def send(self, msg):
+    def __init__(self, med: IMediator, name_: str)-> None:
+        self.mediator = med
+        self.name = name_
+
+    def send(self, msg: str)-> None:
         print(f'Sending message from {self.name}:' + msg)
         self.mediator.send_message(msg, self)
-    def receive(self, msg):
+
+    def receive(self, msg: str)-> None:
         print(f'{self.name} received a Message:' + msg)
 
 

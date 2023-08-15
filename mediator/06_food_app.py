@@ -1,144 +1,192 @@
+# https://dev.to/jemaloqiu/design-pattern-in-python-6-mediator-pattern-b7d
+
 import difflib
+from abc import ABCMeta, abstractmethod
+from typing import List
 
-# Thus I would like to simulate the idea of Too Good To Go in my exercise. Go.
-# Define a BasketInfo class:
-## Basket of Too good to go
-class BasketInfo:
-    """Food Basket info"""
+class IBasketInfo(metaclass=ABCMeta):
+    @abstractmethod
+    def get_location(self):
+        pass
 
-    def __init__(self, location, price,  address, Shop):
+    @abstractmethod
+    def get_address(self):
+        pass
+
+    @abstractmethod
+    def get_shop_name(self):
+        pass
+
+    @abstractmethod
+    def show_info(self, show_shop=True):
+        pass
+
+class IBasketShop(metaclass=ABCMeta):
+    @abstractmethod
+    def get_name(self):
+        pass
+
+    @abstractmethod
+    def set_basket_info(self, address, location, price):
+        pass
+
+    @abstractmethod
+    def publish_basket_info(self, app):
+        pass
+
+class ICustomer(metaclass=ABCMeta):
+    @abstractmethod
+    def get_name(self):
+        pass
+
+    @abstractmethod
+    def find_basket(self, description, app):
+        pass
+
+    @abstractmethod
+    def view_basket(self, basket_infos):
+        pass
+
+    @abstractmethod
+    def buy_basket(self, basket_info, app):
+        pass
+
+class IMediator(metaclass=ABCMeta):
+    @abstractmethod
+    def add_basket_info(self, basket_info):
+        pass
+
+    @abstractmethod
+    def remove_basket_info(self, basket_info):
+        pass
+
+    @abstractmethod
+    def get_search_condition(self, description):
+        pass
+
+    @abstractmethod
+    def get_match_infos(self, search_condition):
+        pass
+
+    @abstractmethod
+    def add_basket(self, basket_info):
+        pass
+
+    @abstractmethod
+    def add_baskets(self):
+        pass
+
+class BasketInfo(IBasketInfo):
+    def __init__(self, location: str, price: float, address: str, shop: IBasketShop):
         self.__location = location
         self.__price = price
         self.__address = address
-        self.__Shop = Shop
+        self.__shop = shop
 
-    def getLocation(self):
+    def get_location(self):
         return self.__location
 
-    def getAddress(self):
+    def get_address(self):
         return self.__address
 
-    def getShopName(self):
-        return self.__Shop.getName()
+    def get_shop_name(self):
+        return self.__shop.get_name()
 
-    def showInfo(self, isShowShop = True):
-        print(" ++ Location: {}".format(self.__location) )
-        print(" ++ Price: {}" .format( str(self.__price) + " euros") )
-        print(" ++ Address: {}" .format( self.__address) )
-        print(" ++ Shop: " + self.getShopName() if isShowShop else "") 
+    def show_info(self, show_shop=True):
+        print(" ++ Location:", self.__location)
+        print(" ++ Price:", str(self.__price) + " euros")
+        print(" ++ Address:", self.__address)
+        print(" ++ Shop:", self.get_shop_name() if show_shop else "")
         print()
 
-# The BasketPlatformApp class which serves as Mediator:
-## Check the similarity of two strings
 def get_equal_rate(str1, str2):
-   return difflib.SequenceMatcher(None, str1, str2).quick_ratio()
+    return difflib.SequenceMatcher(None, str1, str2).quick_ratio()
 
-
-class BasketPlatformApp:
-    """Too Good To Go platform"""
-
-    def __init__(self, name):
-        self.__BasketInfos = []
+class BasketPlatformApp(IMediator):
+    def __init__(self, name: str):
+        self.__basket_infos: List[IBasketInfo] = []
         self.__name = name
 
-    def getName(self):
+    def get_name(self):
         return self.__name
 
-    def addBasketInfo(self, BasketInfo):
-        self.__BasketInfos.append(BasketInfo)
+    def add_basket_info(self, basket_info: IBasketInfo):
+        self.__basket_infos.append(basket_info)
 
-    def removeBasketInfo(self, BasketInfo):
-        for info in self.__BasketInfos:
-            if(info == BasketInfo):
-                self.__BasketInfos.remove(info)
+    def remove_basket_info(self, basket_info: IBasketInfo):
+        self.__basket_infos.remove(basket_info)
 
-    def getSearchCondition(self, description):
+    def get_search_condition(self, description: str):
         return description
 
-    def getMatchInfos(self, searchCondition):
-        print(self.getName(), " shows suitable baskets for you：")
+    def get_match_infos(self, search_condition: str):
+        print(self.get_name(), "shows suitable baskets for you:")
         suitables = []
-        for info in self.__BasketInfos:
-            if get_equal_rate(searchCondition, info.getLocation()) > 0.9:
-                info.showInfo(False)
+        for info in self.__basket_infos:
+            if get_equal_rate(search_condition, info.get_location()) > 0.9:
+                info.show_info(False)
                 suitables.append(info)
-        return  suitables
+        return suitables
 
-    def addBasket(self, BasketInfo):
-        print(self.getName(), " has a new avaible Basket \n  -- Provided by ", BasketInfo.getShopName(), ",\n  -- Located at: ", BasketInfo.getAddress())
+    def add_basket(self, basket_info: IBasketInfo):
+        print(self.get_name(), "has a new available Basket\n -- Provided by", basket_info.get_shop_name(), "\n -- Located at:", basket_info.get_address())
 
-    def addBaskets(self):
-        for info in self.__BasketInfos :
-            self.addBasket(info)
+    def add_baskets(self):
+        for info in self.__basket_infos:
+            self.add_basket(info)
 
-# Now define BasketShop and Customer classes. They will not communicate directly with each other. Their communication shall be done via a mediator. Note that they do not implement each other in their code:
-
-class BasketShop:
-    """ BasketShop class """
-
-    def __init__(self, name):
+class BasketShop(IBasketShop):
+    def __init__(self, name: str):
         self.__name = name
-        self.__BasketInfo = None
+        self.__basket_info: IBasketInfo = None
 
-    def getName(self):
+    def get_name(self):
         return self.__name
 
-    def setBasketInfo(self, address, location, price):
-        self.__BasketInfo = BasketInfo(location, price,  address, self)
+    def set_basket_info(self, address: str, location: str, price: float):
+        self.__basket_info = BasketInfo(location, price, address, self)
 
-    def publishBasketInfo(self, App):
-        App.addBasketInfo(self.__BasketInfo)
-        print(self.getName() + " pushes a Basket on ", App.getName(), ": ")
-        self.__BasketInfo.showInfo()
+    def publish_basket_info(self, app: IMediator):
+        app.add_basket_info(self.__basket_info)
+        print(self.get_name() + " pushes a Basket on", app.get_name() + ":")
+        self.__basket_info.show_info()
 
-
-class Customer:
-    """User of TooGoodToGO"""
-
-    def __init__(self, name):
+class Customer(ICustomer):
+    def __init__(self, name: str):
         self.__name = name
 
-    def getName(self):
+    def get_name(self):
         return self.__name
 
-    def findBasket(self, description, App):
-        print("User " + self.getName() + ", searching a backet with info: " + description )
+    def find_basket(self, description: str, app: IMediator):
+        print("User", self.get_name() + ", searching a basket with info:", description)
         print()
-        return App.getMatchInfos(App.getSearchCondition(description))
+        return app.get_match_infos(app.get_search_condition(description))
 
-    def viewBasket(self, BasketInfos):
-        size = len(BasketInfos)
-        return BasketInfos[size-1]
+    def view_basket(self, basket_infos: List[IBasketInfo]):
+        size = len(basket_infos)
+        return basket_infos[size - 1]
 
-    def buyBasket(self, BasketInfo, App):
-        """ command Basket on App """
-        print(self.getName(), " made a new command on ", App.getName(), " for a basket in ",  BasketInfo.getShopName())
-
-# Now launch a simulation of Mediator pattern:
+    def buy_basket(self, basket_info: IBasketInfo, app: IMediator):
+        print(self.get_name(), "made a new command on", app.get_name(), "for a basket in", basket_info.get_shop_name())
 
 if __name__ == "__main__":
-    print('# Food shops pushes available basket to APP platform: ')
-    myAPP = BasketPlatformApp("Too Good To Go")
-    Paul = BasketShop("Paul");
-    Paul.setBasketInfo("La Defense Parvis 15, 92000, Haut-Seine", "4 temps commercial center", 3.99)
-    Paul.publishBasketInfo(myAPP)
-    Auchan = BasketShop("Auchan")
-    Auchan.setBasketInfo("22 Rue Alma, 92240, Courbevoie", "Supermarcket A2Pas" , 4.0)
-    Auchan.publishBasketInfo(myAPP)
-    Sushi = BasketShop("Sushi Shop")
-    Sushi.setBasketInfo("La Defense Parvis 15, 92000, Haut-Seine", "4 temps commercial center", 6.99)
-    
-    Sushi.publishBasketInfo(myAPP)
-    print('\n\n# Too good to Go updates its available baskets: ')
-    myAPP.addBaskets()
-    
-    print('\n\n# A Too good to Go user searches and buy food basket: ')
-    jemaloQ = Customer("jemaloQ")
-    BasketInfos = jemaloQ.findBasket("4 temps commercial center", myAPP)
-    print("Searching available baskets for you ……")
-    AppropriateBasket = jemaloQ.viewBasket(BasketInfos)
-    jemaloQ.buyBasket(AppropriateBasket, myAPP)
-
-
-
-
+    print('# Food shops push available baskets to APP platform:')
+    my_app = BasketPlatformApp("Too Good To Go")
+    paul = BasketShop("Paul")
+    paul.set_basket_info("La Defense Parvis 15, 92000, Haut-Seine", "4 temps commercial center", 3.99)
+    paul.publish_basket_info(my_app)
+    auchan = BasketShop("Auchan")
+    auchan.set_basket_info("22 Rue Alma, 92240, Courbevoie", "Supermarket A2Pas", 4.0)
+    auchan.publish_basket_info(my_app)
+    sushi = BasketShop("Sushi Shop")
+    sushi.set_basket_info("La Defense Parvis 15, 92000, Haut-Seine", "4 temps commercial center", 6.99)
+    sushi.publish_basket_info(my_app)
+    print('\n\n# Too good to Go updates its available baskets:')
+    my_app.add_baskets()
+    print('\n\n# A Too good to Go user searches and buys a food basket:')
+    jemaloq = Customer("jemaloq")
+    basket_infos = jemaloq.find_basket("4 temps commercial center", my_app)
+    print("Searching available baskets for you…")
+    appropriate_basket = jemaloq.view_basket(basket_infos)
+    jemaloq.buy_basket(appropriate_basket, my_app)

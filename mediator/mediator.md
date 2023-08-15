@@ -38,14 +38,15 @@ In summary, the Mediator pattern provides a structured way to manage complex int
 
 ![Alt text](img/atc.png)
 
-Air traffic controller (ATC) is a mediator between flights. It helps in communication between flights and coordinates/controls landing, take-off.
+ATC stands for Air Traffic Control. The ATC mediator is nothing but the Air Traffic Control Tower which is available at the Airport. Please have a look at the following image. Here, you can see different flights (such as Flight 101, Flight 202, Flight 707, and Flight 808).
 
-Two flights need not interact directly and there is no dependency between them. This dependency is solved by the mediator ATC.
+Suppose Flight 101 wants to land at a particular terminal in the Airport. Then the Flight Pilot will do is he will communicate with the ATC Mediator and says he wants to land Flight 101 at the particular airport terminal. Then the ATC Mediator will do is, he will check whether any flight is there at that particular terminal or not. If no flight is there, then what the ATC mediator will do is it will send a message to Pilots of other flights saying that Flight 101 is going to land and you should not land at that particular terminal. Then the ATC mediator sends a message to the Flight 101 pilot, saying you can land your flight at the particular airport terminal. Once the Flight 101 pilot got the confirmation message from the ATC Mediator then he will land the flight at that particular terminal.
 
-If ATC is not there all the flights have to interact with one another and managing the show will be very difficult and things may go wrong.
+Air Traffic Control Tower
 
-Mediator Design Pattern Real Life Example ATC
+So, here the ATC mediator will act as a central point and all flights should communicate with the ATC mediator. So, what the ATC mediator will do is, it will receive the message and route the message to the appropriate destinations. Here destinations are flights.
 
+Note: The pilots of the planes that are approaching or departing the terminal area communicate with the tower rather than explicitly communicating with one another. The constraints on who can take off or land are enforced by the tower. It is important to note that the tower does not control the whole flight. It exists only to enforce constraints in the terminal area.
 
 
 

@@ -1,6 +1,6 @@
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 
-class ILight(ABC):
+class ILight(metaclass=ABCMeta):
     @abstractmethod
     def turnON(self):
         pass
@@ -9,8 +9,24 @@ class ILight(ABC):
     def turnOFF(self):
         pass
 
+class IMediator(metaclass=ABCMeta):
+    @abstractmethod
+    def registerLight(self, light: ILight):
+        pass
 
-class LightMediator:
+    @abstractmethod
+    def unRegisterLight(self, light: ILight):
+        pass
+
+    @abstractmethod
+    def turnOffAllOtherLights(self, light: ILight):
+        pass
+
+    @abstractmethod
+    def notifyMediator(self, light: ILight):
+        pass
+
+class LightMediator(IMediator):
     def __init__(self):
         self.trafficSignal = set()
 
@@ -35,7 +51,7 @@ class Light:
         ON = "ON"
         OFF = "OFF"
 
-    def __init__(self, color, LightMediator):
+    def __init__(self, color: str, LightMediator: IMediator):
         self.color = color
         self.currentState = None
         self.LightMediator = LightMediator
