@@ -165,8 +165,8 @@ class TransportableFightingUnit(ITransportable):
         print(f"{self} idling...")
         self.headquarters.unit_idled(self)
     
-    def __hash__(self):
-        return hash(self.name)
+    # def __hash__(self):
+    #     return hash(self.name)
 
     def __eq__(self, other):
         if isinstance(other, TransportableFightingUnit):

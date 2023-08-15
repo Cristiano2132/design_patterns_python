@@ -72,8 +72,8 @@ class Flight(IFlight):
         print(f"{self.name}: {landed_flight.name} is landing at my terminal. Holding position.")
 
 
-    def __hash__(self)-> int:
-        return hash(self.name)
+    # def __hash__(self)-> int:
+    #     return hash(self.name)
 
     def __eq__(self, other)-> bool:
         if isinstance(other, Flight):
