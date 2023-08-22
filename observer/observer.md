@@ -67,3 +67,4 @@ After a few days, the Product is available, and so the status of the Product is 
 <p align="center">
     <img src="img/ex03_2.png" alt="Example Image" width="400px" height="auto" />
 </p>
+

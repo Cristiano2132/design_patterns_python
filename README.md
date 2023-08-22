@@ -21,7 +21,7 @@ Create a virtual environment
 ``` bash
 python3.10 -m venv .venv
 ```
-Here we have called our virtual environment as `.venv`, but you can give your preferred name.
+
 
 Active the virtual environment
 ``` bash
