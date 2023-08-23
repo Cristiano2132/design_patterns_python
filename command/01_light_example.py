@@ -129,6 +129,8 @@ if __name__ == "__main__":
     SWITCH.execute("ON")
     SWITCH.execute("OFF")
 
+    
+
     # show history
     SWITCH.show_history()
 

@@ -93,7 +93,7 @@ Always carefully assess your application's requirements and potential concurrenc
 
 ## Example
 
-[Example 01: The leaderboard](the_leaderboard.py)
+[Example 01: The leaderboard](01_the_leaderboard.py)
 
 In the example, there are three games created. They are all independent instances created from their own class, but they all share the same leaderboard. The leaderboard is a singleton.
 
@@ -110,3 +110,12 @@ Each game independently adds a winner, and all games can read the altered leader
 In a software application, various components may require access to global settings that affect the behavior and appearance of the application. These settings may include themes, languages, fonts, and more. Managing these settings consistently across different parts of the application is important to ensure a unified user experience.
 
 We need a way to manage global settings that can be accessed and modified from different components of the application. However, we want to ensure that there is only one instance of the settings manager, to prevent inconsistencies and redundant storage of settings.
+
+[Example 03: Thread-Safety Singleton](03_thread_safe.py)
+
+Imagine a scenario where multiple threads are trying to use a singleton simultaneously.
+
+
+[Example 04: Creating a Singleton using a decorator](04_singleton_by_decorator.py)
+
+In this exercise, you will learn how to implement a thread-safe Singleton pattern using a decorator in Python. The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance. By using a decorator, you can achieve the Singleton behavior without modifying the original class.

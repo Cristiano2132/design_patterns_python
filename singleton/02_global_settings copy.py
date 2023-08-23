@@ -1,5 +1,10 @@
+import random
+import threading
+
+
 class GlobalSettings:
     "GlobalSettings as a Singleton"
+    __inited = False
     _instance = None
     _settings = {}
 
@@ -8,6 +13,12 @@ class GlobalSettings:
             cls._instance = super().__new__(cls)
         return cls._instance
 
+    def __init__(self):
+        if type(self).__inited:
+            return
+        type(self).__inited = True
+        self.value = random.randint(1, 100)
+        
     def set_setting(self, key, value):
         "A class instance method to set a global setting"
         self._settings[key] = value
@@ -35,7 +46,12 @@ class Application:
         setting = global_settings.get_setting("theme")
         print(f"{self.name}: Running with theme '{setting}'")
         print(f"{self.name}: Running with language '{global_settings.get_setting('language')}'")
+        print(f"{self.name}: Running with value '{global_settings.value}'\n")
        
+def create_singleton_instances():
+        s = GlobalSettings()
+        print(f"Singleton instance created by thread {threading.current_thread().name}: {s} and value: {s.value}\n")
+
 
 if __name__ == '__main__':
     # The Client
@@ -52,3 +68,13 @@ if __name__ == '__main__':
     app1.run()
     app2.run()
     app3.run()
+
+    
+    threads = []
+    for i in range(5):
+        t = threading.Thread(target=create_singleton_instances)
+        t.start()
+        threads.append(t)
+
+    for t in threads:
+        t.join()

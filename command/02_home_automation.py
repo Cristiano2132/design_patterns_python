@@ -129,12 +129,13 @@ if __name__ == "__main__":
     fan_on = FanOnCommand(fan)
     fan_off = FanOffCommand(fan)
 
-    # Execute the commands
+    # Register the commands
     remote.register("light_on", light_on)
     remote.register("light_off", light_off)
     remote.register("fan_on", fan_on)
     remote.register("fan_off", fan_off)
 
+    # Execute the commands
     remote.execute("light_on")
     remote.execute("light_off")
     remote.execute("fan_on")

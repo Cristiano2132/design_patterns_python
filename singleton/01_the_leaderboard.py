@@ -1,4 +1,3 @@
-
 from abc import ABCMeta, abstractmethod
 
 class IGame(metaclass=ABCMeta):
@@ -19,7 +18,6 @@ class Game1(IGame):  # pylint: disable=too-few-public-methods
         self.leaderboard.add_winner(position, name)
 
 
-
 class Game2(IGame):  # pylint: disable=too-few-public-methods
     "Game2 implements IGame"
 
@@ -32,7 +30,6 @@ class Game2(IGame):  # pylint: disable=too-few-public-methods
 
 class Game3(Game2):  # pylint: disable=too-few-public-methods
     """Game 3 Inherits from Game 2 instead of implementing IGame"""
-
 
 
 class Leaderboard():
@@ -54,9 +51,6 @@ class Leaderboard():
     def add_winner(cls, position, name):
         "A class level method"
         cls._table[position] = name
-
-
-
 
 if __name__=='__main__':
     # The Client
