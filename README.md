@@ -95,7 +95,7 @@ Here's the list of design patterns covered in your repository, categorized by ty
 ### Behavioral Patterns:
 - [Observer](observer/observer.md)
 - [Strategy](strategy/strategy.md)
-- Command
+- [Command](command/command.md)
 - [Mediator](mediator/mediator.md)
 
 Each pattern comes with an explanation and example files, helping developers understand and implement these design solutions effectively. Explore the individual pattern directories for more in-depth information and practical code examples.

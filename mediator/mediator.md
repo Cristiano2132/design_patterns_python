@@ -36,7 +36,10 @@ In summary, the Mediator pattern provides a structured way to manage complex int
 
 ### 1) [Air Traffic Controller](04_air_traffic_controller.py)
 
-![Alt text](img/atc.png)
+
+<p align="center">
+    <img src="img/atc.png" alt="Example Image" width="400px" height="auto" />
+</p>
 
 ATC stands for Air Traffic Control. The ATC mediator is nothing but the Air Traffic Control Tower which is available at the Airport. Please have a look at the following image. Here, you can see different flights (such as Flight 101, Flight 202, Flight 707, and Flight 808).
 
@@ -52,7 +55,11 @@ Note: The pilots of the planes that are approaching or departing the terminal ar
 
 ### 2) [Traffic Light Signal](03_trafic_lights.py)
 
-![Alt text](img/tfs.png)
+
+<p align="center">
+    <img src="img/tfs.png" alt="Example Image" width="400px" height="auto" />
+</p>
+
 
 When one light turns ON, rest other have to be turned OFF.
 
@@ -110,7 +117,9 @@ In this example, we will explore the concept of the Mediator pattern through a r
 
 Imagine a scenario where customers want to buy unsold food baskets directly from shops without using a mediator. In this approach, customers would need to interact with each shop individually, resulting in complex interactions and potential inefficiencies.
 
-![Alt text](img/app_without_mediator.png)
+<p align="center">
+    <img src="img/app_without_mediator.png" alt="Example Image" width="400px" height="auto" />
+</p>
 
 **Introducing the Mediator: "Too Good To Go"**
 
@@ -130,9 +139,11 @@ To demonstrate the Mediator pattern, we define two participant classes: `BasketS
 
 By using the Mediator pattern, customers can now query and buy available food baskets in a more streamlined manner. The Mediator, represented by the `BasketPlatformApp`, handles the complexities of interactions between customers and shops.
 
-![Alt text](img/app_with_mediator.png)
+<p align="center">
+    <img src="img/app_with_mediator.png" alt="Example Image" width="400px" height="auto" />
+</p>
 
-R**unning the Simulation**
+**Running the Simulation**
 
 We run a simulation to showcase the Mediator pattern in action. Shops like "Paul," "Auchan," and "Sushi Shop" publish their available food baskets to the "Too Good To Go" platform. Customers like "jemaloQ" can search for and buy suitable baskets through the Mediator.
 
@@ -140,6 +151,7 @@ This simulation demonstrates how the Mediator pattern simplifies interactions be
 
 
 ![Alt text](img/output_ex06.png)
+
 
 By applying the Mediator pattern, we've created a more cohesive and manageable system, mirroring the real-world benefits of the "Too Good To Go" application in reducing food waste and promoting sustainability.
 
