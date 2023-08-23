@@ -2,10 +2,6 @@
 
 ### 🏠 [Homepage](https://cristiano2132.github.io/)
 
-Repository: Design Patterns in Python
-
-Description: This repository explores various design patterns implemented in Python. Each pattern has its own directory containing an explanatory Markdown file and example Python scripts. Dive into the world of software design with this collection of practical code examples.
-
 ## Prerequisites
 * Python 3.10.10
 
