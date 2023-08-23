@@ -5,64 +5,8 @@ import time
 from typing import Dict, Type
 import inspect
 
-# Command interface
-class ICommand(metaclass=ABCMeta):
-    @abstractmethod
-    def execute(self):
-        pass
-
-class ISmartDevice(metaclass=ABCMeta):
-    @abstractmethod
-    def turn_on(self):
-        pass
-
-    @abstractmethod
-    def turn_off(self):
-        pass
-
-# Receiver classes
-class Light(ISmartDevice):
-    def turn_on(self):
-        print("Light is ON")
-
-    def turn_off(self):
-        print("Light is OFF")
-
-class Fan(ISmartDevice):
-    def turn_on(self):
-        print("Fan is ON")
-
-    def turn_off(self):
-        print("Fan is OFF")
-
-# Concrete command classes
-class LightOnCommand(ICommand):
-    def __init__(self, light: Light):
-        self.light = light
-
-    def execute(self):
-        self.light.turn_on()
-
-class LightOffCommand(ICommand):
-    def __init__(self, light: Light):
-        self.light = light
-
-    def execute(self):
-        self.light.turn_off()
-
-class FanOnCommand(ICommand):
-    def __init__(self, fan: Fan):
-        self.fan = fan
-
-    def execute(self):
-        self.fan.turn_on()
-
-class FanOffCommand(ICommand):
-    def __init__(self, fan: Fan):
-        self.fan = fan
-
-    def execute(self):
-        self.fan.turn_off()
+from commands_module import ICommand, ISmartDevice, Light, Fan
+import commands_module as command_module
 
 
 class RemoteControl:
@@ -82,7 +26,7 @@ class RemoteControl:
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', class_name)
         return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
-    def auto_register_commands(self, module):
+    def auto_register_commands(self, module=command_module):
         for name, obj in inspect.getmembers(module):
             if inspect.isclass(obj) and issubclass(obj, ICommand) and obj != ICommand:
                 command_name = self.snake_case(name.replace("Command", ""))
@@ -106,16 +50,19 @@ class RemoteControl:
         for command in commands:
             self._commands[command[1]].execute()
 
+
+
 if __name__ == "__main__":
+
     remote = RemoteControl()
     light = Light()
     fan = Fan()
 
-    remote.auto_register_commands(globals())
+    remote.auto_register_commands(module=command_module)
 
     # Execute the commands
-    remote.execute("light_on_command")
-    remote.execute("light_off_command")
-    remote.execute("fan_on_command")
-    remote.execute("fan_off_command")
+    remote.execute("light_on")
+    remote.execute("light_off")
+    remote.execute("fan_on")
+    remote.execute("fan_off")
 
