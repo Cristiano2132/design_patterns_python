@@ -24,7 +24,9 @@ class DatabaseAdapter(ILegacyDatabase, IModernDatabase):
         elif isinstance(self.database, ModernDatabase):
             self.database.get_data()
 
-def main():
+    
+
+if __name__ == "__main__":
     legacy_db = LegacyDatabase()
     modern_db = ModernDatabase()
 
@@ -36,6 +38,3 @@ def main():
 
     print("\nUsing Modern Database via Adapter:")
     modern_adapter.retrieve_data()
-
-if __name__ == "__main__":
-    main()

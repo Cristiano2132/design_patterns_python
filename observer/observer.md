@@ -39,7 +39,7 @@ In these examples, the Observer Pattern fosters a decoupled, extensible system w
 
 ## Examples
 
-[Example 01](01_folowers.py):
+[Example 01](01_twitter_follow_button.py):
 
 Twitter Follow button:  We can think about a celebrity who has many followers on twitter. Each of these followers wants to get all the latest updates of his/her favorite celebrity. So, he/she can follow the celebrity as long as his/her interest persists. When he loses interest, he simply stops following that celebrity. Here we can think of the follower as an observer and the celebrity as a subject.
 
