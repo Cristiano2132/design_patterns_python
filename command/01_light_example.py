@@ -44,12 +44,12 @@ The Switch (Invoker) Class.
 You can flick the switch and it then invokes a registered command
 """
 
-class Switch:
+class RemoteControl:
     "The Invoker Class."
 
     def __init__(self):
         self._commands: Dict[str, Type[ICommand]] = {}
-        self._history = []
+        self._history: list = []
 
     def show_history(self):
         "Print the history of each time a command was invoked"
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     SWITCH_OFF = SwitchOffCommand(LIGHT)
 
     # Register the commands with the invoker
-    SWITCH = Switch()
+    SWITCH = RemoteControl()
     SWITCH.register("ON", SWITCH_ON)
     SWITCH.register("OFF", SWITCH_OFF)
 

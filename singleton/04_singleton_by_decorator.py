@@ -16,14 +16,14 @@ def singleton_decorator(cls, *args, **kwargs):
     instance = {}
     lock = threading.Lock()
 
-    def wrapperSingleton(*args, **kwargs):
+    def wrapper_singleton(*args, **kwargs):
         if cls not in instance:
             with lock:  # Acquire the lock before instance creation
                 if cls not in instance:  # Check again within the lock
                     instance[cls] = cls(*args, **kwargs)
         return instance[cls]
 
-    return wrapperSingleton
+    return wrapper_singleton
 
 @singleton_decorator
 class Singleton(MyClass):

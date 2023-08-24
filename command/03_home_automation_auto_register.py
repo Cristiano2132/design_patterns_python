@@ -51,13 +51,9 @@ class RemoteControl:
             self._commands[command[1]].execute()
 
 
-
 if __name__ == "__main__":
 
     remote = RemoteControl()
-    light = Light()
-    fan = Fan()
-
     remote.auto_register_commands(module=command_module)
 
     # Execute the commands
@@ -65,4 +61,3 @@ if __name__ == "__main__":
     remote.execute("light_off")
     remote.execute("fan_on")
     remote.execute("fan_off")
-
