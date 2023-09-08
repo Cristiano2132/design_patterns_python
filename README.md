@@ -90,7 +90,7 @@ Here's the list of design patterns covered in your repository, categorized by ty
 - Builder
 
 ### Structural Patterns:
-- Decorator
+- [Decorator](decorator/decorator.md)
 - [Adapter](adapter/adapter.md)
 
 ### Behavioral Patterns:
