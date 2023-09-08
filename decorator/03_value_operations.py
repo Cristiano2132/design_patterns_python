@@ -47,3 +47,5 @@ if __name__ == "__main__":
     print(A)
     print(B)
     print(C)
+
+    print(Add(Add(1, 5), 10))

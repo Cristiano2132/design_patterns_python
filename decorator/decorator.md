@@ -64,3 +64,20 @@ Then add decorators that allow addition (Add) and subtraction (Sub) to a number 
 The Add and Sub decorators can accept integers directly, a custom Value object or other Add and Sub decorators.
 
 Add, Sub and Value all implement the IValue interface and can be used recursively.
+
+**Context**
+
+In this example, we are designing a system for performing basic value operations like addition and subtraction using the Decorator Design Pattern. We have a custom class called Value that can hold a numerical value. We want to extend this class to support operations such as addition and subtraction using decorators.
+
+**Problem Description**
+
+We need to create a flexible and extensible system for performing value operations on numbers. The system should allow us to add or subtract values, and these operations can be applied to integers, custom Value objects, or other Add and Sub decorators. The goal is to create a modular and recursive system for value operations.
+
+**Objective**
+
+1. Create a custom Value class that can hold a numerical value.
+2. Implement decorators for addition (Add) and subtraction (Sub) operations on values.
+3. Ensure that the Add and Sub decorators can accept integers directly, custom Value objects, or other Add and Sub decorators.
+4. Implement value operations recursively, allowing complex expressions like (A + B) - (C + D), where A, B, C, and D can be integers, custom Value objects, or other value expressions.
+5. Provide a way to obtain the final result of a value expression as a string.
+
