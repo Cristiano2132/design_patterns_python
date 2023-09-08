@@ -57,14 +57,6 @@ The coffee shop offers different types of coffee (e.g., plain coffee) and allows
 
 ### [Example 3: Value Operations](03_value_operations.py)
 
-Let's create a custom class called Value that will hold a number.
-
-Then add decorators that allow addition (Add) and subtraction (Sub) to a number (Value).
-
-The Add and Sub decorators can accept integers directly, a custom Value object or other Add and Sub decorators.
-
-Add, Sub and Value all implement the IValue interface and can be used recursively.
-
 **Context**
 
 In this example, we are designing a system for performing basic value operations like addition and subtraction using the Decorator Design Pattern. We have a custom class called Value that can hold a numerical value. We want to extend this class to support operations such as addition and subtraction using decorators.
