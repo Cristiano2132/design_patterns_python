@@ -35,8 +35,6 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
-Certainly! Let's delve deeper into each of the three categories of design patterns: Creational Patterns, Structural Patterns, and Behavioral Patterns.
-
 ## Introduction to Design Patterns
 
 Design patterns are reusable solutions to common software design problems. They provide a framework for solving specific issues that developers face while designing applications. Patterns capture design principles and best practices, enabling developers to create robust, maintainable, and flexible code.
